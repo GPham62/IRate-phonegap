@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>I - Rate</title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
+    <link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+</head>
+
+<body>
+
+    <div data-role="page" id="resListPage">
+        <div data-role="header" data-theme="b">
+            <h1>Restaurant List</h1>
+        </div>
+
+        <div data-role="content">
+            <div data-role="fieldcontain">
+                <form class="ui-filterable">
+                    <input id="resSearch" data-type="search" placeholder="Search a restarant by name and rating">
+                </form>
+
+            </div>
+
+            <div data-role="fieldcontain">
+                <ul id="restaurantList" data-role="listview" data-filter="true" data-input="#resSearch"
+                    data-inset="true">
+                </ul>
+            </div>
+
+            <div data-role="fieldcontain" class="ui-grid-b">
+                <div class="ui-block-a" style="width: 65%"></div>
+                <div class="ui-block-b" style="width: 35%">
+                    <a class="ui-btn ui-btn-inline ui-icon-plus ui-btn-icon-top" href="#restaurantReview">New review</a>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <p style="text-align: center;">Restaurant Rating App</p>
+        </div>
+    </div>
+
+    <div data-role="page" id="restaurantReview">
+        <div data-role="header" data-theme="b">
+            <a data-role="button" href="#resListPage" data-icon="home" data-transition="slide"
+                data-iconpos="notext">Home</a>
+            <h1>
+                Review
+            </h1>
+        </div>
+
+        <div data-role="content">
+            <form id="newResForm">
+
+                <fieldset data-role="fieldcontain">
+                    <label for="reviewerName">Reviewer Name:</label>
+                    <input type="text" name="reviewerName" id="reviewerName" placeholder="Your Name" />
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="restaurantName">Restaurant Name:</label>
+                    <input type="text" name="restaurantName" id="restaurantName" placeholder="Restaurant name" />
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="restaurantType" class="select">Restaurant Type:</label>
+                    <select name="restaurantType" id="restaurantType" data-mini="true">
+                        <option value="default" selected>Types:</option>
+                        <option value="fastfood">Fast food</option>
+                        <option value="grill">Grill</option>
+                        <option value="seafood">Sea Food</option>
+                    </select>
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="visitTime">Visit Time:</label>
+                    <input type="time" name="visitTime" id="visitTime" />
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="visitDate">Visit Date:</label>
+                    <input type="date" name="visitDate" id="visitDate" />
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="restaurantPrice">Price:</label>
+                    <select name="restaurantPrice" id="restaurantPrice" data-mini="true">
+                        <option value="default" selected>Price:</option>
+                        <option value="low">Low</option>
+                        <option value="average">Average</option>
+                        <option value="high">High</option>
+                    </select>
+
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="restaurantService">Restaurant Service: </label>
+                    <select name="restaurantService" id="restaurantService" data-mini="true">
+                        <option value="default" selected>Rating: </option>
+                        <option value="nti">Need to improve</option>
+                        <option value="okay">OKAY</option>
+                        <option value="good">Good</option>
+                        <option value="excellent">Excellent</option>
+                    </select>
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="restaurantClean">Restaurant Cleanliness: </label>
+                    <select name="restaurantClean" id="restaurantClean" data-mini="true">
+                        <option value="default" selected>Rating: </option>
+                        <option value="nti">Need to improve</option>
+                        <option value="okay">OKAY</option>
+                        <option value="good">Good</option>
+                        <option value="excellent">Excellent</option>
+                    </select>
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <label for="foodQuality">Food Quality: </label>
+                    <select name="foodQuality" id="foodQuality" data-mini="true">
+                        <option value="default" selected>Rating: </option>
+                        <option value="nti">Need to improve</option>
+                        <option value="okay">OKAY</option>
+                        <option value="good">Good</option>
+                        <option value="excellent">Excellent</option>
+                    </select>
+                </fieldset>
+
+                <fieldset data-role="fieldcontain">
+                    <textarea name="note" id="reviewerNote" placeholder="What is your thought?(optional)"></textarea>
+                </fieldset>
+
+                <fieldset>
+                    <label for="photo">Take restaurant picture (optional):</label>
+                    <div id="restaurantPhoto" class="ui-btn ui-icon-camera ui-btn-icon-top">Take
+                        Picture</div>
+                    <img style="width:75%;height:auto; margin-left: 40px" id="image" src="img/default-image.png" />
+                </fieldset>
+
+                <a id="submitConfirmBtn" data-position-to="window"
+                    data-transition="pop" class="ui-btn ui-shadow ui-corner-all"
+                    style="width: 200px; margin: 20px auto;">Submit</a>
+
+
+                <div data-role="popup" id="popupSubmit" data-dismissible="false" style="width: auto">
+                    <div data-role="header">
+                        <h1>Confirmation</h1>
+                    </div>
+
+                    <div role="main" class="ui-content">
+
+                        <div class="tablerow">
+                            <div class="l-info">Reviewer:</div>
+                            <div class="r-info newReviewerName">TBD</div>
+                        </div>
+
+                        <div class="tablerow">
+                            <div class="l-info">Name:</div>
+                            <div class="r-info newResName">TBD</div>
+                        </div>
+
+                        <div class="tablerow">
+                            <div class="l-info">Type:</div>
+                            <div class="r-info newResType">TBD</div>
+                        </div>
+
+                        <div class="tablerow">
+                            <div class="l-info">Day Visit:</div>
+                            <div class="r-info newResDay">9PM 1/2/2020</div>
+                        </div>
+
+                        <div class="tablerow">
+                            <div class="l-info">Price:</div>
+                            <div class="r-info"><i class='fa fa-dollar-sign fa-fw newResPrice' style="color: #0ed41f">TBD</i>
+                            </div>
+                        </div>
+
+                        <div class="tablerow">
+                            <div class="l-info">Rating:</div>
+                            <div class="r-info"><i class='fas fa-star newResRating'>TBD</i></div>
+                        </div>
+                    </div>
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
+                    <a class="ui-btn ui-corner-all ui-shadow ui-btn-inline" id="newResSubmit">Submit</a>
+                </div>
+            </form>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <p style="text-align: center;">Restaurant Rating App</p>
+        </div>
+    </div>
+
+    <div data-role="page" id="resDetails" data-theme="a">
+        <div data-role="header" data-theme="b">
+            <a data-role="button" href="#resListPage" data-icon="home" data-transition="turn" data-direction="reverse"
+                data-iconpos="notext">Home</a>
+            <h1>
+                Restaurant Details
+            </h1>
+        </div>
+
+        <div data-role="content">
+            <img id="res-img" src="img/res1.png" class="info-img-cover">
+
+            <div data-role="fieldcontain" class="ui-grid-c">
+                <div class="ui-block-a" style="width: 33%">
+                    <a class="ui-btn ui-btn-inline ui-icon-edit ui-btn-icon-top" href="#addnote" data-rel="popup"
+                        data-position-to="window" data-transition="pop">Write Note</a>
+                </div>
+                <div class="ui-block-b" style="width: 33%">
+                    <a href="#edit-res" data-rel="popup" data-position-to="window"
+                        class="ui-btn ui-shadow ui-corner-all ui-icon-edit ui-btn-icon-top" id="editBtn">Edit This</a>
+                </div>
+                <div class="ui-block-c" style="width: 33%">
+                    <a class="ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-top" href="#deleteres" data-rel="popup"
+                        data-position-to="window" data-icon="delete" data-transition="pop" data-theme="b"
+                        data-mini="true">Delete This</a>
+                </div>
+            </div>
+
+            <div data-role="popup" id="edit-res" data-overlay-theme="b" data-theme="b" style="max-width:400px;"
+                data-position-to="window">
+                <div data-role="header" data-theme="a">
+                    <h1>Edit</h1>
+                </div>
+                <div role="main" class="ui-content">
+                    <form id="updateResForm" class="ui-title">
+                        <fieldset data-role="fieldcontain">
+                            <label for="restaurantName">Restaurant Name:</label>
+                            <input type="text" name="restaurantName" id="restaurantName" data-mini="true" />
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="restaurantType" class="select">Restaurant Type:</label>
+                            <select name="restaurantType" id="restaurantType" data-mini="true">
+                                <option value="default" selected>Type:</option>
+                                <option value="fastfood">Fast food</option>
+                                <option value="grill">Grill</option>
+                                <option value="seafood">Sea Food</option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="visitTime">Time:</label>
+                            <input type="time" name="visitTime" id="visitTime" data-mini="true" />
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="visitDate">Date:</label>
+                            <input type="date" name="visitDate" id="visitDate" data-mini="true" />
+
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="restaurantPrice">Price:</label>
+                            <select name="restaurantPrice" id="restaurantPrice">
+                                <option value="default" selected>Price:</option>
+                                <option value="low">Low</option>
+                                <option value="average">Average</option>
+                                <option value="high">High</option>
+                            </select>
+
+
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="edit-service">Service Rating: </label>
+
+                            <select name="restaurantService" id="edit-rservice">
+                                <option value="default" selected>Service:</option>
+                                <option value="nti">Need to improve</option>
+                                <option value="okay">OKAY</option>
+                                <option value="good">Good</option>
+                                <option value="excellent">Excellent</option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="edit-clearnliness">Cleanliness Rating: </label>
+
+                            <select name="restaurantClean" id="edit-rcleanliness">
+                                <option value="default" selected>Cleanliness:</option>
+                                <option value="nti">Need to improve</option>
+                                <option value="okay">OKAY</option>
+                                <option value="good">Good</option>
+                                <option value="excellent">Excellent</option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="edit-quality">Food quality Rating: </label>
+                            <select name="foodQuality" id="edit-rquality">
+                                <option value="default" selected>Food Quality:</option>
+                                <option value="nti">Need to improve</option>
+                                <option value="okay">OKAY</option>
+                                <option value="good">Good</option>
+                                <option value="excellent">Excellent</option>
+                            </select>
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+
+                            <button class="ui-btn ui-shadow ui-corner-all ui-btn-a" style="width: 200px" type="submit"
+                                value="submit">Submit</button>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div data-role="collapsible">
+                <h3>Restaurant Details</h3>
+                <div class="tablerow">
+                    <div class="l-info">Name:</div>
+                    <div class="r-info infoResName"></div>
+                </div>
+
+                <div class="tablerow">
+                    <div class="l-info">Type:</div>
+                    <div class="r-info infoResType"></div>
+                </div>
+
+                <div class="tablerow">
+                    <div class="l-info">Day Visit:</div>
+                    <div class="r-info infoResVisit"></div>
+                </div>
+
+                <div class="tablerow">
+                    <div class="l-info">Price:</div>
+                    <div class="r-info "><i class='fa fa-dollar-sign fa-fw infoResPrice' style="color: #0ed41f"></i>
+                    </div>
+                </div>
+
+                <div class="tablerow">
+                    <div class="l-info">Rating:</div>
+                    <div class="r-info"><i class='fas fa-star infoResRating'></i></div>
+                </div>
+            </div>
+
+
+            <div data-role="collapsible">
+                <h3>Notes</h3>
+                <div id="noteList">
+                    <label for="user1">User1</label>
+                    <textarea name="user1" id="user1" cols="40" rows="5" readonly>
+                        "Lorem ipsum dolor sit amet"
+                    </textarea>
+                </div>
+            </div>
+
+            <div data-role="popup" id="addnote" data-overlay-theme="a" data-theme="b" style="max-width:400px;">
+                <div data-role="header" data-theme="a">
+                    <h1>Add Note</h1>
+                </div>
+                <div role="main" class="ui-content">
+                    <form id="newNoteForm" class="ui-title">
+                        <fieldset data-role="fieldcontain">
+                            <label for="uname">Reviewer Name:</label>
+                            <input type="text" name="reviewerName" placeholder="Reviewer Name..." />
+                        </fieldset>
+
+                        <fieldset data-role="fieldcontain">
+                            <label for="note">Add note:</label>
+                            <textarea name="note" cols="30" rows="10" id="new-note-textarea"></textarea>
+                        </fieldset>
+
+                        <input data-role="none" type="text" id="currentResId" name="currentResId"
+                            style="display: none;">
+
+                        <fieldset data-role="fieldcontain">
+
+                            <button class="ui-btn ui-shadow ui-corner-all ui-btn-a" style="width: 300px" type="submit"
+                                value="submit">Submit</button>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+
+            <div data-role="popup" id="deleteres" data-overlay-theme="b" data-theme="b" style="max-width:400px;">
+                <div data-role="header" data-theme="a">
+                    <h1>Delete</h1>
+                </div>
+                <div role="main" class="ui-content">
+                    <h3 class="ui-title">Are you sure?</h3>
+                    <a href="#resListPage" id="delResBtn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b"
+                        data-transition="flow" data-theme="a" style="width: 200px">Delete</a>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer" data-position="fixed" data-theme="b">
+            <p style="text-align: center;">Restaurant Rating App</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
